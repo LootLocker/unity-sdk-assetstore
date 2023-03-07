@@ -101,7 +101,7 @@ namespace LootLocker.Admin
 
             EndPointClass endPoint = new EndPointClass("game/attribution/unity", LootLockerHTTPMethod.POST);
 
-            LootLockerServerRequest.CallAPI(endPoint.endPoint, endPoint.httpMethod, json, (serverResponse) => { LootLockerResponse.Serialize(onComplete, serverResponse); }, false, LootLockerEnums.LootLockerCallerRole.Base);
+            LootLockerServerRequest.CallAPI(endPoint.endPoint, endPoint.httpMethod, json, (serverResponse) => { LootLockerResponse.Deserialize(onComplete, serverResponse); }, false, LootLockerEnums.LootLockerCallerRole.Base);
         }
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEditor;
-using Unity.Plastic.Newtonsoft.Json;
 using System.Threading.Tasks;
 
 #if UNITY_EDITOR
@@ -97,7 +96,7 @@ namespace LootLocker.Admin
         {
             string json = "";
             if (data == null) return;
-            else json = JsonConvert.SerializeObject(data);
+            else json = LootLockerJson.SerializeObject(data);
 
             EndPointClass endPoint = new EndPointClass("game/attribution/unity", LootLockerHTTPMethod.POST);
 

@@ -28,34 +28,26 @@ namespace LootLocker.Admin
                 return;
             }
             // New ServerManager
-            LootLockerServerManager.CheckInit();
+            LootLockerServerApi.Instantiate();
 
             // Disable logging
             LootLockerConfig.current.currentDebugLevel = LootLockerConfig.DebugLevel.Off;
 
             string apiKey = string.IsNullOrWhiteSpace(LootLockerConfig.current.apiKey) ? "invalidGameAPIKey" : LootLockerConfig.current.apiKey;
             SendAttributionEvent(apiKey, (response) => {
-                if(response.success)
+                // Unsubscribe
+                ProjectSettings.APIKeyEnteredEvent -= EventFired;
+                // Re-enable logging
+                LootLockerConfig.current.currentDebugLevel = LootLockerConfig.DebugLevel.All;
+
+                LootLockerServerApi.Reset();
+                if (response.success)
                 {
                     // Send attribution event
                     UnityEditor.VSAttribution.VSAttribution.SendAttributionEvent("Entered API Key", "LootLocker", response.hash);
-
-                    DestroyImmediate(LootLockerServerManager.I.gameObject);
-                    
-                    // Unsubscribe
-                    ProjectSettings.APIKeyEnteredEvent -= EventFired;
-                    // Re-enable logging
-                    LootLockerConfig.current.currentDebugLevel = LootLockerConfig.DebugLevel.All;
                 }
                 else
                 {
-                    DestroyImmediate(LootLockerServerManager.I.gameObject);
-
-                    // Unsubscribe
-                    ProjectSettings.APIKeyEnteredEvent -= EventFired;
-                    // Re-enable logging
-                    LootLockerConfig.current.currentDebugLevel = LootLockerConfig.DebugLevel.All;
-
                     // Resubscribe in 1 seconds
                     Task task = ResetAttributionCheckAfterXSeconds(1);
                 }

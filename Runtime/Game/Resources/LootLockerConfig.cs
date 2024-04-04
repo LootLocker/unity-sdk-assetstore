@@ -33,6 +33,7 @@ namespace LootLocker
             settingsInstance = Resources.Load<LootLockerConfig>("Config/LootLockerConfig");
 
 #if UNITY_EDITOR
+            Debug.LogWarning(htmlVersionDeprecatedWarningText);
             // Could not be loaded, create it
             if (settingsInstance == null)
             {
@@ -260,6 +261,7 @@ namespace LootLocker
         public enum DebugLevel { All, ErrorOnly, NormalOnly, Off , AllAsNormal}
         public DebugLevel currentDebugLevel = DebugLevel.All;
         public bool allowTokenRefresh = true;
+        [HideInInspector] public const string htmlVersionDeprecatedWarningText = "LootLocker SDK has moved from Unity Asset Store to Open UPM. If you want to continue receiving updates, <a href=\"https://openupm.com/packages/com.lootlocker.lootlockersdk/\">please use our Open UPM version</a>. Read more <a href=\"https://docs.lootlocker.com/reference/deprecation-guide/unity-sdk-deprecation-log/version-2.1.5-migration-to-open-upm\">here</a>.";
 
 #if UNITY_EDITOR
         [InitializeOnEnterPlayMode]

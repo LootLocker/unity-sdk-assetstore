@@ -21,6 +21,7 @@ namespace LootLocker.Extension
         StyleColor live;
         StyleColor defaultButton;
 
+        private Label versionDeprecatedWarningContentLabel;
 
         [Header("Environment")]
         private VisualElement environmentBackground, environmentHandle;
@@ -135,6 +136,9 @@ namespace LootLocker.Extension
             live.value = new Color(0.749f, 0.325f, 0.098f, 1);
             stage.value = new Color(0.094f, 0.749f, 0.352f, 1);
             defaultButton.value = new Color(0.345f, 0.345f, 0.345f, 1);
+
+            versionDeprecatedWarningContentLabel = root.Q<Label>("VersionDeprecatedWarningContent");
+            versionDeprecatedWarningContentLabel.text = LootLockerConfig.htmlVersionDeprecatedWarningText;
 
             menuLogoutBtn = root.Q<Button>("LogoutBtn");
 

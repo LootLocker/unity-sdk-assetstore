@@ -147,14 +147,14 @@ namespace LootLocker
                 {
                     if (package.name.Equals("com.lootlocker.lootlockersdk"))
                     {
-                        LootLockerConfig.current.sdk_version = package.version;
+                        LootLockerConfig.current.sdk_version = package.version + "-assetstore";
                         return;
                     }
                 }
 
                 if (File.Exists("Assets/LootLockerSDK/package.json"))
                 {
-                    LootLockerConfig.current.sdk_version = LootLockerJson.DeserializeObject<LLPackageDescription>(File.ReadAllText("Assets/LootLockerSDK/package.json")).version;
+                    LootLockerConfig.current.sdk_version = LootLockerJson.DeserializeObject<LLPackageDescription>(File.ReadAllText("Assets/LootLockerSDK/package.json")).version + "-assetstore";
                     return;
                 }
 
@@ -166,7 +166,7 @@ namespace LootLocker
                         var packageDescription = LootLockerJson.DeserializeObject<LLPackageDescription>(File.ReadAllText(assetPath));
                         if (!string.IsNullOrEmpty(packageDescription.name) && packageDescription.name.Equals("com.lootlocker.lootlockersdk"))
                         {
-                            LootLockerConfig.current.sdk_version = packageDescription.version;
+                            LootLockerConfig.current.sdk_version = packageDescription.version + "-assetstore";
                             return;
                         }
                     }
